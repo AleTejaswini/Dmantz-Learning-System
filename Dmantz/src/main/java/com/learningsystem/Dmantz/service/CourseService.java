@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.learningsystem.Dmantz.Exceptions.DuplicateValuesException;
 import com.learningsystem.Dmantz.Exceptions.ResourceNotFoundException;
+import com.learningsystem.Dmantz.model.Chapter;
 import com.learningsystem.Dmantz.model.Course;
 import com.learningsystem.Dmantz.model.SubjectArea;
+import com.learningsystem.Dmantz.repository.ChapterRepository;
 import com.learningsystem.Dmantz.repository.CourseRepository;
 import com.learningsystem.Dmantz.repository.SubjectAreaRepository;
 
@@ -17,6 +19,8 @@ public class CourseService {
 	@Autowired
 	private CourseRepository courserepository;
 	
+	@Autowired
+	private ChapterRepository chapterrepository;
 	@Autowired
 	private SubjectAreaRepository subjectarearepository;
 	
@@ -47,8 +51,12 @@ public class CourseService {
 	public void deletecourse(int courseId) {
 		Course course = courserepository.findById(courseId)
 				.orElseThrow(() -> new ResourceNotFoundException("Course with id: "+courseId+" not found"));
+		List<Chapter> chapters = chapterrepository.findByCourse(course);
+		chapterrepository.deleteAll(chapters);
 		courserepository.delete(course);
 	}
+	
+	
 	public Course updatecourse(int courseId,Course updatedcourse) {
 		Course existingcourse = courserepository.findById(courseId)
 				.orElseThrow(() -> new ResourceNotFoundException("Course with id: "+courseId+" not found"));
