@@ -48,7 +48,7 @@ public class GlobalExceptionHandler {
 
 		String message = ex.getMessage();
 		System.out.println(message);
-
+		//subjectArea
 		if (message.contains("SubjectAreaNames")) {
 
 			ErrorResponse error = new ErrorResponse(
@@ -57,8 +57,38 @@ public class GlobalExceptionHandler {
 
 			return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 		}
+		
+		//course
+		else if (message.contains("CourseNames")) {
 
-		// For all other JSON errors
+			ErrorResponse error = new ErrorResponse(
+					"Invalid course value. Allowed values:COREJAVA,SPRINGBOOT,JDBC,HTML,CSS,JAVASCRIPT,DJANGO",
+					webRequest.getDescription(false), "INVALID_ENUM_VALUE");
+
+			return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+		}
+		
+		//chapter
+		else if (message.contains("ChapterNames")) {
+
+			ErrorResponse error = new ErrorResponse(
+					"Invalid course value. Allowed values:OOPs,COLLECTION,ARRAYS,MULTITHREADING",
+					webRequest.getDescription(false), "INVALID_ENUM_VALUE");
+
+			return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+		}
+		
+		//topic
+		else if (message.contains("TopicNames")) {
+
+			ErrorResponse error = new ErrorResponse(
+					"Invalid course value. Allowed values:INHERITANCE,ENCAPSULATION,ABSTRACTION,POLYMORPHISM,LIST,LINKEDLIST,MAP",
+					webRequest.getDescription(false), "INVALID_ENUM_VALUE");
+
+			return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+		}
+
+		// For JSON errors
 		ErrorResponse error = new ErrorResponse("Invalid JSON Input", webRequest.getDescription(false),
 				"JSON_PARSE_ERROR");
 

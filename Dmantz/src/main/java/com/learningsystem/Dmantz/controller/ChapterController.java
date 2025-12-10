@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.learningsystem.Dmantz.model.Chapter;
-import com.learningsystem.Dmantz.model.Course;
 import com.learningsystem.Dmantz.service.ChapterService;
 
 @RestController

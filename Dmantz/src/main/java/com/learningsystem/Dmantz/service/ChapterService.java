@@ -9,9 +9,10 @@ import com.learningsystem.Dmantz.Exceptions.DuplicateValuesException;
 import com.learningsystem.Dmantz.Exceptions.ResourceNotFoundException;
 import com.learningsystem.Dmantz.model.Chapter;
 import com.learningsystem.Dmantz.model.Course;
-import com.learningsystem.Dmantz.model.SubjectArea;
+import com.learningsystem.Dmantz.model.Topic;
 import com.learningsystem.Dmantz.repository.ChapterRepository;
 import com.learningsystem.Dmantz.repository.CourseRepository;
+import com.learningsystem.Dmantz.repository.TopicRepository;
 
 @Service
 public class ChapterService {
@@ -20,6 +21,9 @@ public class ChapterService {
 	
 	@Autowired
 	private CourseRepository courserepository;
+	
+	@Autowired
+	private TopicRepository topicrepository;
 	
 	public Chapter addchapter(Chapter chapter) {
 		List<Chapter> names = chapterrepository.findByChaptername(chapter.getChaptername());
@@ -48,6 +52,8 @@ public class ChapterService {
 	public void deletechapter(int chapterid) {
 		Chapter chapter = chapterrepository.findById(chapterid)
 				.orElseThrow(() -> new ResourceNotFoundException("Chapter with id: "+chapterid+" not found"));
+		List<Topic> topics = topicrepository.findByChapter(chapter);
+		topicrepository.deleteAll(topics);
 		chapterrepository.delete(chapter);
 	}
 	

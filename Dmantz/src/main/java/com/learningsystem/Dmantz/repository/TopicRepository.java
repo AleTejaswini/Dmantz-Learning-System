@@ -6,11 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.learningsystem.Dmantz.enums.TopicNames;
 import com.learningsystem.Dmantz.model.Chapter;
-import com.learningsystem.Dmantz.model.Topics;
+import com.learningsystem.Dmantz.model.Topic;
 
-public interface TopicRepository extends JpaRepository<Topics,Integer>{
+public interface TopicRepository extends JpaRepository<Topic,Integer>{
 
-	List<Topics> findByTopicNames(TopicNames topicnames);
+	List<Topic> findByTopicname(TopicNames topicNames);
 	
-	List<Topics> findByChapter(Chapter chapter);
+	List<Topic> findByChapter(Chapter chapter);
 }
